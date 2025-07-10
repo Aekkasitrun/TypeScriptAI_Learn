@@ -1,5 +1,3 @@
-import { Employee } from "./data_models/employee";
-
 
 // 1. Util function to calculate total salary
 export function getTotalSalary(employees: Employee[]): number {
@@ -33,4 +31,32 @@ export function getAverageYearsOfService(employees: Employee[]): number {
     if (employees.length === 0) return 0;
     const totalYears = employees.reduce((sum, emp) => sum + emp.yearsOfService, 0);
     return totalYears / employees.length;
+}
+
+export function generateOrderId(): string {
+    return Math.random().toString(36).substring(2, 15);
+}
+
+export function processOrder(
+    customer: Customer,
+    items: OrderItem[],
+    shippingAddress: ShippingAddress
+): Order {
+    let totalAmount = 0;
+
+    for (let item of items) {
+        totalAmount += item.price * item.quantity;
+    }
+
+    const order: Order = {
+        id: generateOrderId(),
+        customer,
+        items,
+        shippingAddress,
+        totalAmount,
+        status: "pending",
+        createdAt: new Date()
+    };
+
+    return order;
 }

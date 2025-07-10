@@ -6,6 +6,8 @@ exports.getEmployeesByDepartment = getEmployeesByDepartment;
 exports.getNameAndSalaryArray = getNameAndSalaryArray;
 exports.getHighestPaidEmployee = getHighestPaidEmployee;
 exports.getAverageYearsOfService = getAverageYearsOfService;
+exports.generateOrderId = generateOrderId;
+exports.processOrder = processOrder;
 // 1. Util function to calculate total salary
 function getTotalSalary(employees) {
     return employees.reduce((sum, emp) => sum + emp.salary, 0);
@@ -34,4 +36,23 @@ function getAverageYearsOfService(employees) {
         return 0;
     const totalYears = employees.reduce((sum, emp) => sum + emp.yearsOfService, 0);
     return totalYears / employees.length;
+}
+function generateOrderId() {
+    return Math.random().toString(36).substring(2, 15);
+}
+function processOrder(customer, items, shippingAddress) {
+    let totalAmount = 0;
+    for (let item of items) {
+        totalAmount += item.price * item.quantity;
+    }
+    const order = {
+        id: generateOrderId(),
+        customer,
+        items,
+        shippingAddress,
+        totalAmount,
+        status: "pending",
+        createdAt: new Date()
+    };
+    return order;
 }

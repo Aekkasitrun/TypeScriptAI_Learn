@@ -1,12 +1,27 @@
-import { Employee } from './data_models/employee';
-import { EmployeeService } from './service/employeeService';
+import { sessionOneService } from './service/sessionOneService';
+import * as readline from 'readline';
 
-const employees: Employee[] = [
-    { name: "Alice", department: "Engineering", salary: 75000, yearsOfService: 3 },
-    { name: "Bob", department: "Marketing", salary: 65000, yearsOfService: 5 },
-    { name: "Charlie", department: "Engineering", salary: 80000, yearsOfService: 2 },
-    { name: "Diana", department: "Sales", salary: 70000, yearsOfService: 4 },
-    { name: "Eve", department: "Engineering", salary: 85000, yearsOfService: 6 }
-];
-const employeeService = new EmployeeService(employees);
-employeeService.printAllResults(); // Print all results
+const sessionOne_Service = new sessionOneService();
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+(async () => {
+    await new Promise<void>((resolve) => {
+        rl.question('Please select mode (1 or 2): ', (answer) => {
+            if (answer === '1') {
+                sessionOne_Service.printResultHomework1();
+            } else if (answer === '2') {
+                sessionOne_Service.printResultHomework2();
+            } else {
+                console.log('Invalid mode selected.');
+            }
+            rl.close();
+            resolve();
+        });
+    });  
+})();
+
+// sessionOne_Service.printResultHomework1(); // Print all results
+// sessionOne_Service.printResultHomework2(); // Print all results for Exercise 2

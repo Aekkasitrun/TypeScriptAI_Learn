@@ -1,5 +1,5 @@
 // Define the Employee interface
-export interface Employee {
+interface Employee {
     name: string;
     department: string;
     salary: number;
