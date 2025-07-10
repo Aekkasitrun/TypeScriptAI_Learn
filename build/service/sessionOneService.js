@@ -114,5 +114,33 @@ class sessionOneService {
         console.log(`\nTotal: $${newOrder.totalAmount.toLocaleString()}`);
         console.log("=====================");
     }
+    testCasesHomework3() {
+        console.log("=== User Registration Test Cases ===");
+        const testCases = [
+            {
+                description: "Valid user",
+                input: { name: "Alice", email: "alice@example.com", age: 25 },
+            },
+            {
+                description: "Missing email and age",
+                input: { name: "Bob" },
+            },
+            {
+                description: "Invalid data",
+                input: { name: "", email: "invalid-email", age: -5 },
+            },
+            {
+                description: "Null input",
+                input: null,
+            },
+        ];
+        testCases.forEach((test, idx) => {
+            console.log(`\n--- Test Case #${idx + 1}: ${test.description} ---`);
+            console.log("Input:", test.input);
+            const result = utility.registerUser(test.input);
+            console.log("Result:", result);
+        });
+        console.log("\n===============================");
+    }
 }
 exports.sessionOneService = sessionOneService;
