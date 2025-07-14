@@ -7,26 +7,26 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-(async () => {
-    await new Promise<void>((resolve) => {
-        rl.question('Please select mode (1 or 2 or 3): ', (answer) => {
-            if (answer === '1') {
-                sessionOne_Service.printResultHomework1();
-            } 
-            else if (answer === '2') {
-                sessionOne_Service.printResultHomework2();
-            }
-            else if( answer === '3') {
-                sessionOne_Service.testCasesHomework3();
-            }
-            else {
-                console.log('Invalid mode selected.');
-            }
+function prompt() {
+    rl.question('Please select mode (1 or 2 or 3), or type "exit" to quit: ', (answer) => {
+        if (answer === '1') {
+            sessionOne_Service.printResultHomework1();
+        } 
+        else if (answer === '2') {
+            sessionOne_Service.printResultHomework2();
+        }
+        else if (answer === '3') {
+            sessionOne_Service.testCasesHomework3();
+        }
+        else if (answer.toLowerCase() === 'exit') {
             rl.close();
-            resolve();
-        });
-    });  
-})();
+            return;
+        }
+        else {
+            console.log('Invalid mode selected.');
+        }
+        prompt(); // ask again
+    });
+}
 
-
-
+prompt();

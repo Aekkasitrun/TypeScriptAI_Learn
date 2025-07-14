@@ -32,15 +32,6 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const sessionOneService_1 = require("./service/sessionOneService");
 const readline = __importStar(require("readline"));
@@ -49,23 +40,25 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield new Promise((resolve) => {
-        rl.question('Please select mode (1 or 2 or 3): ', (answer) => {
-            if (answer === '1') {
-                sessionOne_Service.printResultHomework1();
-            }
-            else if (answer === '2') {
-                sessionOne_Service.printResultHomework2();
-            }
-            else if (answer === '3') {
-                sessionOne_Service.testCasesHomework3();
-            }
-            else {
-                console.log('Invalid mode selected.');
-            }
+function prompt() {
+    rl.question('Please select mode (1 or 2 or 3), or type "exit" to quit: ', (answer) => {
+        if (answer === '1') {
+            sessionOne_Service.printResultHomework1();
+        }
+        else if (answer === '2') {
+            sessionOne_Service.printResultHomework2();
+        }
+        else if (answer === '3') {
+            sessionOne_Service.testCasesHomework3();
+        }
+        else if (answer.toLowerCase() === 'exit') {
             rl.close();
-            resolve();
-        });
+            return;
+        }
+        else {
+            console.log('Invalid mode selected.');
+        }
+        prompt(); // ask again
     });
-}))();
+}
+prompt();
