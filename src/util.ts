@@ -1,7 +1,11 @@
 
 // 1. Util function to calculate total salary
 export function getTotalSalary(employees: Employee[]): number {
-    return employees.reduce((sum, emp) => sum + emp.salary, 0);
+    let total = 0;
+    for (let i = 0; i < employees.length; i++) {
+        total += employees[i].salary;
+    }
+    return total;
 }
 
 // 2. Util function to log name and department of each employee
